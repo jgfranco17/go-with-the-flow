@@ -38,7 +38,8 @@ func main() {
 		log.Infof("Running API production server on port %d", *port)
 		gin.SetMode(gin.ReleaseMode)
 	}
-	err := router.GetRouter().Run()
+	serviceRouter := router.GetRouter()
+	err := serviceRouter.Run()
 	if err != nil {
 		log.Error("Error starting the server:", err)
 	}

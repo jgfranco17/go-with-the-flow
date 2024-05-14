@@ -26,8 +26,13 @@ build:
 	docker build -t {{project}}:latest -f ./Dockerfile .
 	@echo "Docker image built successfully!"
 
+# Run pre-commit hooks
+pre-commit:
+    pre-commit run --all-files --verbose
+
+# Update and sync Go modules
 tidy:
-  -cd core && go mod tidy
-  -cd service && go mod tidy
-  -go mod tidy
-  go work sync
+    -cd core && go mod tidy
+    -cd service && go mod tidy
+    -go mod tidy
+    go work sync

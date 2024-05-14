@@ -22,8 +22,6 @@ func addLoggerFields() gin.HandlerFunc {
 			environment := os.Getenv(env.ENV_KEY_ENVIRONMENT)
 			version := os.Getenv(env.ENV_KEY_VERSION)
 
-			// Golang recommends contexts to use custom types instead
-			// of strings, but gin defines key as a string.
 			c.Set(string(context_settings.RequestId), requestID)
 			c.Set(string(context_settings.Environment), environment)
 			c.Set(string(context_settings.Version), version)
@@ -48,11 +46,6 @@ func logRequest() gin.HandlerFunc {
 		c.Next()
 		log.Infof("Request Completed: [%s] %s", c.Request.Method, c.Request.URL)
 	}
-}
-
-func newAlgorithmRoute(version int, algorithm string, params string) string {
-	versionNumber := fmt.Sprintf("v%d", version)
-	return fmt.Sprintf("%s/algorithms/%s/%s", versionNumber, algorithm, params)
 }
 
 // Configure the router adding routes and middlewares
